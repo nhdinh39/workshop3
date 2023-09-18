@@ -12,21 +12,21 @@
     <title>Policies and Permissions :: IAM with AWS CLI</title>
 
     
-    <link href="../css/nucleus.css?1694958082" rel="stylesheet">
-    <link href="../css/fontawesome-all.min.css?1694958082" rel="stylesheet">
-    <link href="../css/hybrid.css?1694958082" rel="stylesheet">
-    <link href="../css/featherlight.min.css?1694958082" rel="stylesheet">
-    <link href="../css/perfect-scrollbar.min.css?1694958082" rel="stylesheet">
-    <link href="../css/auto-complete.css?1694958082" rel="stylesheet">
-    <link href="../css/atom-one-dark-reasonable.css?1694958082" rel="stylesheet">
-    <link href="../css/theme.css?1694958082" rel="stylesheet">
-    <link href="../css/hugo-theme.css?1694958082" rel="stylesheet">
+    <link href="../css/nucleus.css?1695002160" rel="stylesheet">
+    <link href="../css/fontawesome-all.min.css?1695002160" rel="stylesheet">
+    <link href="../css/hybrid.css?1695002160" rel="stylesheet">
+    <link href="../css/featherlight.min.css?1695002160" rel="stylesheet">
+    <link href="../css/perfect-scrollbar.min.css?1695002160" rel="stylesheet">
+    <link href="../css/auto-complete.css?1695002160" rel="stylesheet">
+    <link href="../css/atom-one-dark-reasonable.css?1695002160" rel="stylesheet">
+    <link href="../css/theme.css?1695002160" rel="stylesheet">
+    <link href="../css/hugo-theme.css?1695002160" rel="stylesheet">
     
-    <link href="../css/theme-workshop.css?1694958082" rel="stylesheet">
+    <link href="../css/theme-workshop.css?1695002160" rel="stylesheet">
     
     
 
-    <script src="../js/jquery-3.3.1.min.js?1694958082"></script>
+    <script src="../js/jquery-3.3.1.min.js?1695002160"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../js/lunr.min.js?1694958082"></script>
-<script type="text/javascript" src="../js/auto-complete.js?1694958082"></script>
+<script type="text/javascript" src="../js/lunr.min.js?1695002160"></script>
+<script type="text/javascript" src="../js/auto-complete.js?1695002160"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="../js/search.js?1694958082"></script>
+<script type="text/javascript" src="../js/search.js?1695002160"></script>
 
     
   </div>
@@ -1260,7 +1260,8 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#content">Content</a></li>
+        <li></li>
+        <li><a href="#nôi-dung">Nội dung</a></li>
       </ul>
     </li>
   </ul>
@@ -1289,8 +1290,49 @@
 
 
 	<p><img src="../images/policy.png" alt="POLICY"></p>
-<p>In this chapter, we will learn about Policy Simulator and perform operations related to Policies and Permissions.</p>
-<h3 id="content">Content</h3>
+<h4 id="các-khái-niệm">Các khái niệm</h4>
+<p><strong>Policies</strong> là các điều khoản được tạo hoặc chỉ định để kiểm soát quyền truy cập vào tài nguyên của AWS. Mỗi một policy có những tính năng và quyền hạn nhất định gắn với Users, Groups, Roles trong IAM.</p>
+<p>Trong AWS, Policies được chia làm 2 loại: <strong>Identity-based policies</strong> và <strong>Resource-based policies</strong></p>
+<ul>
+<li><strong>Identity-based policies</strong>: được gán cho <strong>IAM identities</strong> (IAM Users, IAM Groups, IAM Roles) chỉ định những hành động và những resources tương ứng mà <strong>IAM identities</strong> được phép (Allow) hoặc không được phép (Deny) thực hiện. <strong>Identity-based policies</strong> có thể được phân loại thành 2 loại:
+<ul>
+<li><strong>Managed policies:</strong>  Chính sách dựa trên danh tính độc lập mà bạn có thể đính kèm cho nhiều người dùng, nhóm và vai trò trong tài khoản AWS của chúng ta.
+<ul>
+<li><strong>AWS managed policies:</strong> Các chính sách được quản lý do AWS tạo và quản lý.</li>
+<li><strong>Customer managed policies:</strong> Các chính sách do chúng ta tự tạo ra và quản lý trong tài khoản AWS của mình.</li>
+</ul>
+</li>
+<li><strong>Inline policies:</strong> Các chính sách tạm thời mà chúng ta tạo và quản lý và được nhúng trực tiếp vào một User, Group hoặc Role.</li>
+</ul>
+</li>
+<li><strong>Resource-based policies</strong>: Loại chính sách này được gán cho <strong>AWS Resource</strong>, chẳng hạn như các tài nguyên EC2, S3 buckets, Lambda, và nhiều dịch vụ khác. Chính sách này xác định ai hoặc cái gì có quyền truy cập hoặc thực hiện hành động trên chính tài nguyên đó.</li>
+</ul>
+<h4 id="cấu-trúc-của-một-policy">Cấu trúc của một Policy</h4>
+<pre tabindex="0"><code>{
+    &#34;Version&#34;: &#34;2012-10-17&#34;,
+    &#34;Statement&#34;:[
+        {
+            &#34;Effect&#34;:&#34;effect&#34;,
+            &#34;Action&#34;:&#34;action&#34;,
+            &#34;Resource&#34;:&#34;arn&#34;,
+            &#34;Condition&#34;:{
+                &#34;condition&#34;:{
+                    &#34;key&#34;:&#34;value&#34;
+                }
+            }
+        }
+    ]
+}
+</code></pre><p>Trong đó:</p>
+<ul>
+<li><strong>Version</strong>: là phiên bản của ngôn ngữ policy</li>
+<li><strong>Effect</strong>: Là 1 thành phần bắt buộc và chỉ định kết quả statement được chấp nhận hoặc từ chối (Allow/Deny)</li>
+<li><strong>Action</strong>: Mô tả hành động cụ thể sẽ được phép hoặc bị từ chối.</li>
+<li><strong>Resource</strong>: Chỉ định những tài nguyên AWS bị ảnh hưởng bởi Action.</li>
+<li><strong>Condition</strong>: Chỉ định các điều kiện bắt buộc để policy có hiệu lực</li>
+</ul>
+<p>Trong chương này, chúng ta sẽ cùng tìm hiểu về <strong>Policy Simulator</strong> và thực hiện các thao tác với liên quan đến <strong>Policies</strong> và <strong>Permissions</strong> bằng <strong>AWS CLI</strong>.</p>
+<h3 id="nôi-dung">Nội dung</h3>
 <p><a href="6.1-policysimulator/">6.1 Policy Simulator</a><br>
 <a href="6.2-inlinepolicies/">6.2 Inline Policies</a><br>
 <a href="6.3-managedpolicies/">6.3 Managed Policies</a><br>
@@ -1919,19 +1961,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../js/clipboard.min.js?1694958082"></script>
-    <script src="../js/perfect-scrollbar.min.js?1694958082"></script>
-    <script src="../js/perfect-scrollbar.jquery.min.js?1694958082"></script>
-    <script src="../js/jquery.sticky.js?1694958082"></script>
-    <script src="../js/featherlight.min.js?1694958082"></script>
-    <script src="../js/highlight.pack.js?1694958082"></script>
+    <script src="../js/clipboard.min.js?1695002160"></script>
+    <script src="../js/perfect-scrollbar.min.js?1695002160"></script>
+    <script src="../js/perfect-scrollbar.jquery.min.js?1695002160"></script>
+    <script src="../js/jquery.sticky.js?1695002160"></script>
+    <script src="../js/featherlight.min.js?1695002160"></script>
+    <script src="../js/highlight.pack.js?1695002160"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../js/modernizr.custom-3.6.0.js?1694958082"></script>
-    <script src="../js/learn.js?1694958082"></script>
-    <script src="../js/hugo-learn.js?1694958082"></script>
+    <script src="../js/modernizr.custom-3.6.0.js?1695002160"></script>
+    <script src="../js/learn.js?1695002160"></script>
+    <script src="../js/hugo-learn.js?1695002160"></script>
 
-    <link href="../mermaid/mermaid.css?1694958082" rel="stylesheet" />
-    <script src="../mermaid/mermaid.js?1694958082"></script>
+    <link href="../mermaid/mermaid.css?1695002160" rel="stylesheet" />
+    <script src="../mermaid/mermaid.js?1695002160"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
