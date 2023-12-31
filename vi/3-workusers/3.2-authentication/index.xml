@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Quản lý xác thực on IAM với AWS CLI</title>
+    <link>/vi/3-workusers/3.2-authentication/</link>
+    <description>Recent content in Quản lý xác thực on IAM với AWS CLI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>vi</language><atom:link href="/vi/3-workusers/3.2-authentication/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
